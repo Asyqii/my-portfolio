@@ -58,7 +58,7 @@ const Navbar: FC<NavbarProps> = ({ activeSection }) => {
         </div>
         <a 
         className="cursor-pointer hidden md:block bg-gradient-to-r from-[#FF4D00] to-[#E60026] px-6 py-2 rounded-md transition-all duration-300 ease-in-out hover:from-[#FA6E00] hover:to-[#D1001A] hover:scale-105 hover:shadow-md"
-        href="./.././../public/CV_ATS_Ahmad_Suyuti_Syauqi.pdf"
+        href="/CV_ATS_Ahmad_Suyuti_Syauqi.pdf"
         target="_blank"
         >
           Download CV

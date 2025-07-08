@@ -136,7 +136,7 @@ const App: React.FC = () => {
                 <div className="flex space-x-4">
                   <a
                     className="bg-primary px-6 py-3 rounded-md flex items-center gap-2 transition-all hover:shadow-md duration-300 ease-in-out hover:from-[#FA6E00] hover:to-[#D1001A] hover:scale-105 hover:shadow-slate-400"
-                    href="./../../public/CV_ATS_Ahmad_Suyuti_Syauqi.pdf"
+                    href="/CV_ATS_Ahmad_Suyuti_Syauqi.pdf"
                     target="_blank"
                   >
                     <Download size={20} />

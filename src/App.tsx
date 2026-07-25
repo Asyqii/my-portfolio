@@ -71,7 +71,6 @@ const App: React.FC = () => {
     { logo: javascriptLogo, percentage: 80, name: "Javascript" },
     { logo: kotlinLogo, percentage: 80, name: "Kotlin" },
     { logo: sqlLogo, percentage: 50, name: "SQL" },
-    { logo: "https://cdn.simpleicons.org/neondatabase/00E599", percentage: 80, name: "Neon" },
     { logo: "https://cdn.simpleicons.org/supabase/3ECF8E", percentage: 80, name: "Supabase" },
   ];
 

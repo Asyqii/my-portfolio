@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    scroll-behavior: smooth;
+}
+
+.clip-path {  
+    clip-path: polygon(50% 0%, 100% 40%, 80% 100%, 20% 100%, 0% 40%);  
+  }  
+
+  .typing-cursor {  
+    display: inline-block; /* pastikan kursor bertindak sebagai elemen blok inline */  
+    width: 1px; /* Lebar kursor */  
+    height: 40px; /* Tinggi kursor */  
+    background-color: #984300; /* Warna kursor */  
+    margin-left: 1px; /* Jarak antara teks dan kursor */  
+  }  
+  
+  @keyframes blink {  
+    0%, 100% {  
+      opacity: 1; /* Kursor terlihat */  
+    }  
+    50% {  
+      opacity: 0; /* Kursor hilang */  
+    }  
+  }  

@@ -309,18 +309,11 @@ const App: React.FC = () => {
 
               <div>
                 <p className="text-gray-400 mb-8">
-                  Hello! I'm Ahmad Suyuti Syauqi, a Front-End and Mobile
-                  Developer with experience in creating engaging and functional
-                  apps and websites. I strongly believe in the importance of
-                  responsive design and good user experience. I have worked with
-                  various projects, ranging from creating company profiles to
-                  business websites, and always try to provide the right
-                  solution to meet my clients' needs. With skills in React JS
-                  and Kotlin, I am ready to help you realize your digital
-                  vision. Outside of work, I love exploring the latest trends in
-                  technology and design, and innovating to create better
-                  experiences for users. Feel free to contact me if you need
-                  help with your project!
+                  Hello! I'm Ahmad Suyuti Syauqi, a Fullstack Developer, Mobile Developer, and Quality Assurance Enthusiast with a strong track record of building and evaluating robust digital systems. I strongly believe that great software requires not only responsive design but also seamless functionality and an intuitive user experience.
+
+I have worked on various complex projects—from comprehensive management information systems to hardware-integrated mobile applications—always striving to deliver high-quality, bug-free solutions. With deep technical expertise in React JS, Next JS, Kotlin, and practical experience in usability testing (such as the System Usability Scale), I am well-equipped to help you realize and optimize your digital vision.
+
+Outside of work, I love exploring the latest trends in technology, AI implementation, and software testing to continuously innovate and create better experiences for users. Feel free to contact me if you need a dedicated professional for your next project!
                 </p>
 
                 <a href="../public/certificates.pdf" target="_blank">

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Instagram, Github, Mail, Download, ChevronDown } from "lucide-react";
 import Navbar from "./components/Navbar";
-import myPhoto from "./../public/assets/images/my_photo.jpg";
+import myPhoto from "./../public/assets/images/my_photo.png";
 import Linkedin from "./../public/assets/images/linkedin.png";
 import appEyesight from "./../public/assets/images/app.webp";
 import websiteKonveksi from "./../public/assets/images/website_konveksi.webp";

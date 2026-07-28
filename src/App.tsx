@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Instagram, Github, Mail, Download, ChevronDown } from "lucide-react";
 import Navbar from "./components/Navbar";
 import myPhoto from "./../public/assets/images/my_photo.png";
+import myPhoto2 from "./../public/assets/images/my_photo2.jpg";
 import Linkedin from "./../public/assets/images/linkedin.png";
 import appEyesight from "./../public/assets/images/app.webp";
 import websiteKonveksi from "./../public/assets/images/website_konveksi.webp";
@@ -214,7 +215,7 @@ const App: React.FC = () => {
               <div className="relative">
                 <div className="aspect-square rounded-full overflow-hidden">
                   <img
-                    src={myPhoto}
+                    src={myPhoto2}
                     alt="Profile"
                     className="w-full h-full object-cover filter grayscale transition duration-300 hover:grayscale-0"
                   />

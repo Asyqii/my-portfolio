@@ -309,11 +309,9 @@ const App: React.FC = () => {
 
               <div>
                 <p className="text-gray-400 mb-8">
-                  Hello! I'm Ahmad Suyuti Syauqi, a Fullstack Developer, Mobile Developer, and Quality Assurance Enthusiast with a strong track record of building and evaluating robust digital systems. I strongly believe that great software requires not only responsive design but also seamless functionality and an intuitive user experience.
-
-I have worked on various complex projects—from comprehensive management information systems to hardware-integrated mobile applications—always striving to deliver high-quality, bug-free solutions. With deep technical expertise in React JS, Next JS, Kotlin, and practical experience in usability testing (such as the System Usability Scale), I am well-equipped to help you realize and optimize your digital vision.
-
-I love exploring the latest trends in technology, AI implementation, and software testing to continuously innovate and create better experiences for users. Feel free to contact me if you need a dedicated professional for your next project!
+                  Hello! I'm Ahmad Suyuti Syauqi, a Fullstack Developer, Mobile Developer, and QA Enthusiast dedicated to building and evaluating robust digital systems.
+                  I have developed complex projects ranging from comprehensive management information systems to hardware-integrated mobile apps. Leveraging my expertise in React JS, Next JS, Kotlin, and usability testing (SUS), I focus on delivering high-quality, bug-free solutions with an intuitive user experience.
+                  Passionate about AI implementation and software testing, I am ready to help realize and optimize your digital vision. Feel free to contact me for your next project!
                 </p>
 
                 <a href="../public/certificates.pdf" target="_blank">

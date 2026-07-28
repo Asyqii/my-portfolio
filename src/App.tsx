@@ -313,7 +313,7 @@ const App: React.FC = () => {
 
 I have worked on various complex projects—from comprehensive management information systems to hardware-integrated mobile applications—always striving to deliver high-quality, bug-free solutions. With deep technical expertise in React JS, Next JS, Kotlin, and practical experience in usability testing (such as the System Usability Scale), I am well-equipped to help you realize and optimize your digital vision.
 
-Outside of work, I love exploring the latest trends in technology, AI implementation, and software testing to continuously innovate and create better experiences for users. Feel free to contact me if you need a dedicated professional for your next project!
+I love exploring the latest trends in technology, AI implementation, and software testing to continuously innovate and create better experiences for users. Feel free to contact me if you need a dedicated professional for your next project!
                 </p>
 
                 <a href="../public/certificates.pdf" target="_blank">

@@ -9,8 +9,9 @@ const TypingAnimation = () => {
 
     const options = {  
         strings: [  
-          '<i>Front-End Developer</i>',   
+          '<i>Fullstack Developer</i>',   
           '<i className=`px-10`>Android Developer</i>',   
+          '<i className=`px-10`>QA Engineer</i>',   
         ],  
         typeSpeed: 50,  
         backSpeed: 30, // Kecepatan saat menghapus  

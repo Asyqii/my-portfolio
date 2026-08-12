@@ -1,40 +1,34 @@
-import React from "react";
+import { useEffect, useRef } from "react";
 import Typed from "typed.js";
 
+const STRINGS = ["Fullstack Developer", "Android Developer", "QA Engineer"];
+
 const TypingAnimation = () => {
-  const el = React.useRef(null);
+  const el = useRef<HTMLSpanElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
+    if (!el.current) return;
 
+    const typed = new Typed(el.current, {
+      strings: STRINGS,
+      typeSpeed: 55,
+      backSpeed: 30,
+      backDelay: 1400,
+      loop: true,
+      showCursor: true,
+      cursorChar: '<span class="typing-cursor"></span>',
+    });
 
-    const options = {  
-        strings: [  
-          '<i>Fullstack Developer</i>',   
-          '<i className=`px-10`>Android Developer</i>',   
-          '<i className=`px-10`>QA Engineer</i>',   
-        ],  
-        typeSpeed: 50,  
-        backSpeed: 30, // Kecepatan saat menghapus  
-        backDelay: 1000, // Delay sebelum mulai menghapus  
-        loop: true, // Mengulangi animasi  
-        showCursor: true, // Menampilkan kursor  
-        cursorChar: '<span class="typing-cursor"></span>', // Menambahkan kursor khusus  
-      };  
-
-      
-  
-      const typed = new Typed(el.current, options);  
-
-    return () => {
-      // Destroy Typed instance during cleanup to stop animation
-      typed.destroy();
-    };
+    return () => typed.destroy();
   }, []);
 
   return (
-    <div className="App">
-      <span ref={el} className="text-4xl pb-2 px-1 -ml-2 md:text-5xl font-bold bg-gradient-to-r from-[#984300] to-primary bg-clip-text text-transparent"/>
-    </div>
+    <p className="min-h-[1.2em] text-4xl font-bold leading-tight tracking-tight md:text-5xl">
+      <span
+        ref={el}
+        className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
+      />
+    </p>
   );
 };
 

@@ -1,8 +1,15 @@
+/**
+ * Decorative glow behind the hero copy. Sits in the flow's first grid cell
+ * but is positioned absolutely, so it never affects layout.
+ */
 const Blob = () => {
-  return (  
-    <div className="absolute flex justify-center items-center w-96 h-96 overflow-hidden filter blur-xl opacity-10 z-0 mb-20">  
-    <div className="absolute inset-0 bg-orange-500 rounded-full transform rotate-12 filter blur-3xl clip-path z-0"></div>  
-  </div>
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute -left-24 top-8 z-0 h-96 w-96 opacity-20 blur-3xl"
+    >
+      <div className="clip-path h-full w-full rotate-12 bg-gradient-to-br from-primary to-accent" />
+    </div>
   );
 };
 

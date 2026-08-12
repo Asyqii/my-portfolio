@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { Instagram, Github, Mail, Download, ChevronDown } from "lucide-react";
 import Navbar from "./components/Navbar";
-import myPhoto from "./../public/assets/images/my_photo.png";
-import myPhoto2 from "./../public/assets/images/my_photo2.jpg";
-import Linkedin from "./../public/assets/images/linkedin.png";
-import appEyesight from "./../public/assets/images/app.webp";
-import websiteKonveksi from "./../public/assets/images/website_konveksi.webp";
-import pirateLibrary from "./../public/assets/images/pirate_library.webp";
-import figmaLogo from "./../public/assets/images/figma.png";
-import reactLogo from "./../public/assets/images/react_logo.png";
-import javascriptLogo from "./../public/assets/images/js_logo.png";
-import kotlinLogo from "./../public/assets/images/kotlin_logo.png";
-import sqlLogo from "./../public/assets/images/sql_logo.png";
+import myPhoto from "./assets/images/my_photo.webp";
+import myPhoto2 from "./assets/images/my_photo2.webp";
+import Linkedin from "./assets/images/linkedin.webp";
+import appEyesight from "./assets/images/app.webp";
+import websiteKonveksi from "./assets/images/website_konveksi.webp";
+import pirateLibrary from "./assets/images/pirate_library.webp";
+import figmaLogo from "./assets/images/figma.webp";
+import reactLogo from "./assets/images/react_logo.webp";
+import javascriptLogo from "./assets/images/js_logo.webp";
+import kotlinLogo from "./assets/images/kotlin_logo.webp";
+import sqlLogo from "./assets/images/sql_logo.webp";
 import ProgressIcon from "./components/IconProgress";
 import PortftolioSection from "./components/layout/PortfolioSection";
 import Blob from "./components/Blob";
@@ -109,9 +109,11 @@ const App: React.FC = () => {
         setErrorMessage(data.message || "Gagal mengirim pesan.");
         setSubmitStatus("error");
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Web3Forms Fetch Error:", error);
-      setErrorMessage(error.message || "Terjadi kesalahan jaringan.");
+      setErrorMessage(
+        error instanceof Error ? error.message : "Terjadi kesalahan jaringan."
+      );
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
@@ -146,6 +148,7 @@ const App: React.FC = () => {
                   <a
                     href="https://github.com/Asyqii"
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-center rounded-full border border-[#575757] bg-[#231E1B] p-2 hover:shadow-lg hover:shadow-primary hover:border-primary hover:scale-105 duration-300"
                     aria-label="Github"
                   >
@@ -154,6 +157,7 @@ const App: React.FC = () => {
                   <a
                     href="https://mail.google.com/mail/u/0/?pli=1#inbox?compose=GTvVlcSDbSMsWdJHjzjStrkrmKGbKJCwrJXxssdGzqfsbmCVsWswbJBLCbpRFQjJPtHpBdsXpVkFC"
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-center rounded-full border border-[#575757] bg-[#231E1B] p-2 hover:shadow-lg hover:shadow-primary hover:border-primary hover:scale-105 duration-300"
                     aria-label="Email"
                   >
@@ -162,6 +166,7 @@ const App: React.FC = () => {
                   <a
                     href="https://www.linkedin.com/in/ahmadsuyutisyauqi/"
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-center rounded-full border border-[#575757] bg-[#231E1B] p-2 grayscale hover:grayscale-0 hover:shadow-lg hover:shadow-primary hover:border-primary hover:scale-105 duration-300"
                     aria-label="Linkedin"
                   >
@@ -178,6 +183,7 @@ const App: React.FC = () => {
                     className="bg-primary px-6 py-3 rounded-md flex items-center gap-2 transition-all hover:shadow-md duration-300 ease-in-out hover:from-[#FA6E00] hover:to-[#D1001A] hover:scale-105 hover:shadow-slate-400"
                     href="/CV_ATS_Ahmad_Suyuti_Syauqi.pdf"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     <Download size={20} />
                     Download CV
@@ -314,7 +320,7 @@ const App: React.FC = () => {
                   Passionate about AI implementation and software testing, I am ready to help realize and optimize your digital vision. Feel free to contact me for your next project!
                 </p>
 
-                <a href="../public/certificates.pdf" target="_blank">
+                <a href="/certificates.pdf" target="_blank" rel="noopener noreferrer">
                   <button className="bg-gradient-to-r from-primary to-[#E60026] px-6 py-3 rounded-md flex items-center gap-2 transition-all duration-300 ease-in-out hover:from-[#FA6E00] hover:to-[#D1001A] hover:scale-105 hover:shadow-md">
                     <Download size={20} />
                     My Certificate

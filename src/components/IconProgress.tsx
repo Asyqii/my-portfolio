@@ -1,8 +1,4 @@
-import figmaLogo from "./../../public/assets/images/figma.png";
-// import reactLogo from "./../public/assets/images/react_logo.png";
-// import javascriptLogo from "./../public/assets/images/js_logo.png";
-// import kotlinLogo from "./../public/assets/images/kotlin_logo.png";
-// import sqlLogo from "./../public/assets/images/sql_logo.png";
+import figmaLogo from "./../assets/images/figma.webp";
 
 interface CircularProgressProps {
     percentage?: number;

@@ -1,15 +1,13 @@
 import { useState } from "react";
-import klikKonveksi from "./../../../public/assets/images/website_konveksi.webp";
-import cancerApp from "./../../../public/assets/images/cancer_app.webp";
-import storyApp from "./../../../public/assets/images/story_app.webp";
-import dicodingEvent from "./../../../public/assets/images/dicoding_event_app.webp";
-import eyesightApp from "./../../../public/assets/images/eyesight_app.webp";
-import pirateLibrary from "./../../../public/assets/images/pirate_library.webp";
-import animeLens from "./../../../public/assets/images/animelens_mockups.webp";
-// import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import bigData from './../../../public/assets/images/bigdata.webp';
-import ngemusik from './../../../public/assets/images/ngemusik.png';
+import klikKonveksi from "./../../assets/images/website_konveksi.webp";
+import cancerApp from "./../../assets/images/cancer_app.webp";
+import storyApp from "./../../assets/images/story_app.webp";
+import dicodingEvent from "./../../assets/images/dicoding_event_app.webp";
+import eyesightApp from "./../../assets/images/eyesight_app.webp";
+import pirateLibrary from "./../../assets/images/pirate_library.webp";
+import animeLens from "./../../assets/images/animelens_mockups.webp";
+import bigData from "./../../assets/images/bigdata.webp";
+import ngemusik from "./../../assets/images/ngemusik.webp";
 
 const PortftolioSection = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -126,7 +124,9 @@ const PortftolioSection = () => {
                   <div className="absolute inset-0 bg-[#FF4D00]/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <button
                       className="px-6 py-3 bg-white text-[#FF4D00] rounded-md"
-                      onClick={() => window.open(project.link, "")}
+                      onClick={() =>
+                        window.open(project.link, "_blank", "noopener,noreferrer")
+                      }
                     >
                       View Project
                     </button>

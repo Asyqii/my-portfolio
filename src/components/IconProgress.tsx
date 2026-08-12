@@ -1,27 +1,31 @@
-import figmaLogo from "./../assets/images/figma.webp";
+interface IconProgressProps {
+  logo: string;
+  name: string;
+}
 
-interface CircularProgressProps {
-    percentage?: number;
-    logo: string;
-    name: string;
-  }
-  
-  const IconProgress: React.FC<CircularProgressProps> = ({
-    logo,
-    name,
-  }) => {
-    return (
-      <div className="flex items-center justify-center relative group flex-col">
-        <div className="w-[100px] h-[100px] flex items-center justify-center rounded-full border-4 border-[#4A4A4A] group-hover:border-[#FF4D00] transition-colors duration-300 mb-3 bg-[#1A1A1A]">
-          <img
-            src={logo}
-            alt="Logo"
-            className={`${logo === figmaLogo ? 'w-6' : 'w-9'} max-h-9 object-contain group-hover:grayscale-0 grayscale transition duration-300`}
-          />
-        </div>
-        <p className="text-center text-sm text-gray-400 font-bold">{name}</p>
+/**
+ * A skill badge: logo in a ring that warms to the brand color on hover.
+ * Logos are desaturated at rest so the row reads as one unit.
+ */
+const IconProgress: React.FC<IconProgressProps> = ({ logo, name }) => {
+  return (
+    <div className="group flex flex-col items-center">
+      <div className="flex h-[88px] w-[88px] items-center justify-center rounded-full border-2 border-white/10 bg-dark-elevated transition duration-300 group-hover:-translate-y-1 group-hover:border-primary group-hover:shadow-lg group-hover:shadow-primary/20">
+        <img
+          src={logo}
+          alt=""
+          width={36}
+          height={36}
+          loading="lazy"
+          decoding="async"
+          className="h-9 w-9 object-contain grayscale transition duration-300 group-hover:grayscale-0"
+        />
       </div>
-    );
-  };
+      <p className="mt-3 text-center text-sm font-medium text-gray-400 transition-colors group-hover:text-white">
+        {name}
+      </p>
+    </div>
+  );
+};
 
-  export default IconProgress;
+export default IconProgress;

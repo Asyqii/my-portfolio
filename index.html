@@ -68,9 +68,8 @@
       (function () {
         try {
           var stored = localStorage.getItem("theme");
-          var dark = stored
-            ? stored === "dark"
-            : !window.matchMedia("(prefers-color-scheme: light)").matches;
+          // Default to dark; only go light when the user explicitly chose it.
+          var dark = stored ? stored === "dark" : true;
           document.documentElement.classList.toggle("dark", dark);
         } catch (e) {}
       })();

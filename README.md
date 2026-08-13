@@ -23,7 +23,7 @@
 
 The source for my personal developer portfolio — a single-page site presenting who I am, what I build, and selected work. It's a precision-instrument surface: near-neutral fields, one coral accent, borders instead of shadows, and two motion durations for the whole product.
 
-## Highlights
+<img src="./assets/readme/section-highlights.svg" width="100%" alt="Highlights">
 
 - **Light & dark themes** — token-driven (`oklch` CSS variables), resolved before first paint so the page never flashes. Follows the OS by default and remembers your choice.
 - **Continuous work marquee** — two counter-scrolling strips of projects that pause on hover so any card stays clickable.
@@ -31,7 +31,7 @@ The source for my personal developer portfolio — a single-page site presenting
 - **Fast & SEO-ready** — WebP assets, lazy loading, Open Graph + Twitter cards, JSON-LD `Person` data, `robots.txt`, and a sitemap.
 - **Resilient** — an error boundary keeps a single failing component from blanking the page; the contact form is spam-guarded with a honeypot.
 
-## Tech stack
+<img src="./assets/readme/section-stack.svg" width="100%" alt="Tech stack">
 
 | Layer | Choice |
 |---|---|
@@ -43,7 +43,7 @@ The source for my personal developer portfolio — a single-page site presenting
 | Contact | Web3Forms |
 | Hosting | Vercel |
 
-## Getting started
+<img src="./assets/readme/section-start.svg" width="100%" alt="Getting started">
 
 ```bash
 # clone and install
@@ -65,7 +65,7 @@ npm run preview   # serve the production build locally
 npm run lint      # run ESLint
 ```
 
-## Project structure
+<img src="./assets/readme/section-structure.svg" width="100%" alt="Project structure">
 
 ```text
 src/

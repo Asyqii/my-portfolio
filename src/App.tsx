@@ -78,9 +78,12 @@ const FOOTER_LINKS = [
   { label: "Contact", href: "#contact" },
 ];
 
-/* Inputs signal focus by border color alone — no ring. */
+/* Inputs signal focus by border color alone — no ring.
+   Use a solid surface: --input carries its own alpha, so Tailwind's /20
+   opacity modifier can't resolve it and the field renders near-white.
+   bg-background is a solid token with guaranteed contrast against the card. */
 const FIELD =
-  "h-7 w-full rounded-md border border-input bg-input/20 px-2 text-xs text-foreground shadow-none transition-all placeholder:text-muted-foreground focus:border-primary focus:outline-none dark:bg-input/30";
+  "h-7 w-full rounded-md border border-input bg-background px-2 text-xs text-foreground shadow-none transition-all placeholder:text-muted-foreground focus:border-primary focus:outline-none [&>option]:bg-popover [&>option]:text-foreground";
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<Section>("home");
@@ -277,7 +280,7 @@ const App: React.FC = () => {
             <div className="mt-12 grid gap-4 md:grid-cols-3">
               {SERVICES.map(({ index, title, image, alt, description }, i) => (
                 <Reveal key={title} delay={i * 90}>
-                  <article className="group h-full overflow-hidden rounded-lg bg-card ring-1 ring-foreground/10 transition-all hover:ring-foreground/20">
+                  <article className="group card-elevated h-full overflow-hidden rounded-lg bg-card ring-1 ring-foreground/10 transition-all hover:-translate-y-1 hover:ring-foreground/20">
                     <div className="overflow-hidden border-b border-border">
                       <img
                         src={image}
@@ -286,12 +289,14 @@ const App: React.FC = () => {
                         height={562}
                         loading="lazy"
                         decoding="async"
-                        className="aspect-[16/10] w-full object-cover"
+                        className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
                     <div className="flex flex-col gap-4 px-4 py-4">
                       <div className="flex items-baseline gap-2">
-                        <span className="label-eyebrow">{index}</span>
+                        <span className="label-eyebrow transition-all group-hover:text-primary">
+                          {index}
+                        </span>
                         <h3 className="text-sm font-semibold leading-[21px] tracking-[-0.025em]">
                           {title}
                         </h3>

@@ -1,99 +1,103 @@
 <svg xmlns="http://www.w3.org/2000/svg"
-     width="1200" height="360" viewBox="0 0 1200 360"
+     width="1200" height="540" viewBox="0 0 1200 540"
      role="img" aria-labelledby="title desc">
   <title id="title">Ahmad Suyuti Syauqi — Fullstack &amp; Android Developer portfolio</title>
-  <desc id="desc">Portfolio homepage source. Fullstack and Android developer and QA enthusiast based in Surabaya, Indonesia, built with React, Vite, TypeScript and Tailwind CSS.</desc>
+  <desc id="desc">Portfolio homepage: navigation bar, the name Ahmad Suyuti Syauqi, role Fullstack Developer, a short intro, Download CV and View work actions, social links, a framed portrait, and stats — 3+ years, 10+ projects, 7+ clients.</desc>
 
   <defs>
     <style>
       .mono { font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace; }
       .sans { font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
     </style>
-    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#ff5d6e" stop-opacity="0.16"/>
-      <stop offset="1" stop-color="#88db8b" stop-opacity="0.10"/>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2a2a2a"/>
+      <stop offset="0.42" stop-color="#e9e9e6"/>
+      <stop offset="1" stop-color="#d7d7d2"/>
     </linearGradient>
-    <clipPath id="cardClip"><rect x="724" y="70" width="404" height="232" rx="10"/></clipPath>
+    <clipPath id="photoClip"><rect x="864" y="150" width="272" height="272" rx="11"/></clipPath>
   </defs>
 
   <!-- Field: near-black, drawn not lit -->
-  <rect width="1200" height="360" rx="20" fill="#0f0f0f"/>
-  <rect x="0.5" y="0.5" width="1199" height="359" rx="20" fill="none" stroke="#ffffff" stroke-opacity="0.10"/>
+  <rect width="1200" height="540" rx="20" fill="#0f0f0f"/>
+  <rect x="0.5" y="0.5" width="1199" height="539" rx="20" fill="none" stroke="#ffffff" stroke-opacity="0.10"/>
 
-  <!-- Dashed margin rails, the site's drafting motif -->
-  <line x1="56" y1="28" x2="56" y2="332" stroke="#ffffff" stroke-opacity="0.16" stroke-dasharray="6 8"/>
-  <line x1="1144" y1="28" x2="1144" y2="332" stroke="#ffffff" stroke-opacity="0.16" stroke-dasharray="6 8"/>
-
-  <!-- Title block -->
-  <g transform="translate(96 84)">
-    <!-- Eyebrow: mono, uppercase, positive tracking, muted -->
-    <text class="mono" x="0" y="0" font-size="17" letter-spacing="4" fill="#868586">SURABAYA, INDONESIA</text>
-
-    <!-- Name: display, tight negative tracking, weight 500 -->
-    <text class="sans" x="-2" y="66" font-size="62" font-weight="600" letter-spacing="-2" fill="#f5f5f5">Ahmad Suyuti</text>
-    <text class="sans" x="-2" y="130" font-size="62" font-weight="600" letter-spacing="-2" fill="#f5f5f5">Syauqi</text>
-
-    <!-- Role line with the coral caret cue -->
-    <text class="mono" x="0" y="176" font-size="19" fill="#868586">Fullstack<tspan fill="#5c5c5c"> · </tspan>Android<tspan fill="#5c5c5c"> · </tspan>QA</text>
-    <rect x="232" y="162" width="2" height="19" fill="#ff5d6e"/>
-
-    <!-- Tech chips -->
-    <g transform="translate(0 206)" class="mono" font-size="15" fill="#d4d4d4">
-      <g>
-        <rect x="0" y="-16" width="70" height="26" rx="6" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12"/>
-        <text x="14" y="2">React</text>
-      </g>
-      <g transform="translate(80 0)">
-        <rect x="0" y="-16" width="88" height="26" rx="6" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12"/>
-        <text x="14" y="2">Next.js</text>
-      </g>
-      <g transform="translate(178 0)">
-        <rect x="0" y="-16" width="98" height="26" rx="6" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12"/>
-        <text x="14" y="2">TypeScript</text>
-      </g>
-      <g transform="translate(286 0)">
-        <rect x="0" y="-16" width="72" height="26" rx="6" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12"/>
-        <text x="14" y="2">Kotlin</text>
-      </g>
+  <!-- ── Nav (48px header, transparent) ───────────────────────── -->
+  <g transform="translate(0 44)" class="mono">
+    <text x="64" y="0" font-size="15" letter-spacing="3" fill="#f5f5f5">KII.</text>
+    <g font-size="14" fill="#868586" text-anchor="middle">
+      <text x="536" y="0" fill="#f5f5f5">Home</text>
+      <text x="612" y="0">Services</text>
+      <text x="686" y="0">About</text>
+      <text x="746" y="0">Work</text>
+      <text x="818" y="0">Contact</text>
+    </g>
+    <g transform="translate(1136 -18)">
+      <rect x="-104" y="0" width="104" height="34" rx="9" fill="#ff5d6e"/>
+      <text x="-52" y="22" font-size="13" fill="#fdfcf5" text-anchor="middle">Download CV</text>
     </g>
   </g>
 
-  <!-- Proof: a simplified browser frame of the live portfolio -->
+  <!-- ── Title block ──────────────────────────────────────────── -->
+  <g transform="translate(64 0)">
+    <text class="mono" x="0" y="132" font-size="16" letter-spacing="4" fill="#868586">SURABAYA, INDONESIA</text>
+
+    <text class="sans" x="-3" y="212" font-size="66" font-weight="600" letter-spacing="-2.4" fill="#f5f5f5">Ahmad Suyuti Syauqi</text>
+
+    <text class="mono" x="0" y="256" font-size="17" fill="#868586">Fullstack Developer</text>
+    <rect x="182" y="242" width="2" height="18" fill="#ff5d6e"/>
+
+    <text class="sans" x="0" y="300" font-size="17" fill="#f5f5f5" fill-opacity="0.62">I build and test digital products end to end — from</text>
+    <text class="sans" x="0" y="326" font-size="17" fill="#f5f5f5" fill-opacity="0.62">management information systems to hardware-integrated apps.</text>
+
+    <!-- Actions -->
+    <g transform="translate(0 360)">
+      <rect x="0" y="0" width="176" height="40" rx="9" fill="#ff5d6e"/>
+      <path d="M28 15 v11 M23 21 l5 5 l5 -5" fill="none" stroke="#fdfcf5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <text class="sans" x="46" y="26" font-size="15" font-weight="500" fill="#fdfcf5">Download CV</text>
+
+      <rect x="192" y="0" width="128" height="40" rx="9" fill="none" stroke="#ffffff" stroke-opacity="0.14"/>
+      <text class="sans" x="256" y="26" font-size="15" font-weight="500" fill="#f5f5f5" text-anchor="middle">View work</text>
+    </g>
+
+    <!-- Socials -->
+    <g transform="translate(0 446)" class="sans" font-size="14" fill="#f5f5f5" fill-opacity="0.62">
+      <text x="0" y="0">GitHub</text><path d="M56 -10 l7 0 l0 7 M63 -10 l-9 9" stroke="#ff5d6e" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <text x="86" y="0">LinkedIn</text><path d="M150 -10 l7 0 l0 7 M157 -10 l-9 9" stroke="#ff5d6e" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <text x="180" y="0">Email</text><path d="M228 -10 l7 0 l0 7 M235 -10 l-9 9" stroke="#ff5d6e" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- ── Framed portrait (crop marks, no shadow) ──────────────── -->
   <g>
-    <rect x="724" y="70" width="404" height="232" rx="10" fill="#141414" stroke="#ffffff" stroke-opacity="0.10"/>
-    <!-- Browser chrome -->
-    <path d="M724 80 a10 10 0 0 1 10 -10 h384 a10 10 0 0 1 10 10 v22 h-404 z" fill="#1b1b1b"/>
-    <circle cx="742" cy="86" r="3.5" fill="#ff5d6e"/>
-    <circle cx="756" cy="86" r="3.5" fill="#4d4d4d"/>
-    <circle cx="770" cy="86" r="3.5" fill="#4d4d4d"/>
-    <rect x="788" y="79" width="300" height="14" rx="7" fill="#0f0f0f"/>
-    <text class="mono" x="800" y="90" font-size="10" fill="#868586">ahmad-suyuti-portfolio.vercel.app</text>
-
-    <!-- Screen content -->
-    <g clip-path="url(#cardClip)">
-      <rect x="724" y="102" width="404" height="200" fill="url(#screen)"/>
-      <text class="sans" x="748" y="150" font-size="30" font-weight="600" letter-spacing="-1" fill="#f5f5f5">Selected work</text>
-      <text class="mono" x="748" y="176" font-size="11" fill="#868586">10+ PROJECTS · 7+ CLIENTS · 3+ YEARS</text>
-      <!-- mini project cards -->
-      <rect x="748" y="196" width="112" height="72" rx="7" fill="#141414" stroke="#ffffff" stroke-opacity="0.10"/>
-      <rect x="872" y="196" width="112" height="72" rx="7" fill="#141414" stroke="#ffffff" stroke-opacity="0.10"/>
-      <rect x="996" y="196" width="112" height="72" rx="7" fill="#141414" stroke="#ffffff" stroke-opacity="0.10"/>
-      <rect x="756" y="204" width="96" height="40" rx="4" fill="#ff5d6e" fill-opacity="0.18"/>
-      <rect x="880" y="204" width="96" height="40" rx="4" fill="#88db8b" fill-opacity="0.14"/>
-      <rect x="1004" y="204" width="96" height="40" rx="4" fill="#ffffff" fill-opacity="0.06"/>
+    <rect x="864" y="150" width="272" height="272" rx="11" fill="#141414" stroke="#ffffff" stroke-opacity="0.10"/>
+    <g clip-path="url(#photoClip)">
+      <rect x="864" y="150" width="272" height="272" fill="url(#wall)"/>
+      <!-- head + shoulders silhouette, echoing the real portrait -->
+      <circle cx="1000" cy="292" r="44" fill="#3b4a33"/>
+      <path d="M916 422 q0 -74 84 -74 q84 0 84 74 z" fill="#3b4a33"/>
+      <path d="M964 236 q36 -30 72 0 q6 22 -6 40 q-30 -26 -60 0 q-12 -18 -6 -40 z" fill="#1f2a1a"/>
     </g>
-
-    <!-- Crop marks pinning the frame corners -->
-    <g stroke="#ffffff" stroke-opacity="0.24">
-      <path d="M712 70 h10 M717 65 v10"/>
-      <path d="M1140 70 h-10 M1135 65 v10"/>
-      <path d="M712 302 h10 M717 297 v10"/>
-      <path d="M1140 302 h-10 M1135 297 v10"/>
+    <!-- crop marks -->
+    <g stroke="#ffffff" stroke-opacity="0.28">
+      <path d="M852 150 h12 M858 144 v12"/>
+      <path d="M1148 150 h-12 M1142 144 v12"/>
+      <path d="M852 422 h12 M858 416 v12"/>
+      <path d="M1148 422 h-12 M1142 416 v12"/>
     </g>
   </g>
 
-  <!-- Footer metadata rule -->
-  <line x1="96" y1="322" x2="1104" y2="322" stroke="#ffffff" stroke-opacity="0.10" stroke-dasharray="6 8"/>
-  <text class="mono" x="96" y="342" font-size="13" fill="#5c5c5c">PORTFOLIO · SOURCE</text>
-  <text class="mono" x="1104" y="342" font-size="13" text-anchor="end" fill="#5c5c5c">REACT · VITE · TAILWIND</text>
+  <!-- ── Stats bar (dashed rules top &amp; bottom) ─────────────────── -->
+  <g transform="translate(64 0)">
+    <line x1="0" y1="470" x2="1072" y2="470" stroke="#ffffff" stroke-opacity="0.14" stroke-dasharray="1 0"/>
+    <g class="mono" font-size="13" letter-spacing="2" fill="#868586">
+      <text x="0" y="500">YEARS</text>
+      <text x="360" y="500">PROJECTS</text>
+      <text x="720" y="500">CLIENTS</text>
+    </g>
+    <g class="sans" font-size="34" font-weight="500" letter-spacing="-1" fill="#f5f5f5">
+      <text x="0" y="524">3+</text>
+      <text x="360" y="524">10+</text>
+      <text x="720" y="524">7+</text>
+    </g>
+  </g>
 </svg>

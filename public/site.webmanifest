@@ -1,0 +1,16 @@
+{
+  "name": "Ahmad Suyuti Syauqi — Fullstack & Android Developer",
+  "short_name": "ASY Portfolio",
+  "description": "Portfolio of Ahmad Suyuti Syauqi, a Fullstack & Android Developer building web and mobile products.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f0f",
+  "theme_color": "#0f0f0f",
+  "icons": [
+    {
+      "src": "/assets/images/logo_website.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+  ]
+}

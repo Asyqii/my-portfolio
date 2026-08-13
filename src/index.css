@@ -1,82 +1,336 @@
+/* Geist, self-hosted (SIL OFL 1.1 — see node_modules/@fontsource-variable/geist/LICENSE). */
+@import "@fontsource-variable/geist/index.css";
+@import "@fontsource-variable/geist-mono/index.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ---------------------------------------------------------------------------
+   Tokens. Authored in oklch, consumed only through Tailwind utilities that
+   map to these variables — a raw hex in a component is a bug.
+   --------------------------------------------------------------------------- */
+
 @layer base {
+  :root {
+    --background: oklch(98.43% 0.0011 197.14);
+    --foreground: oklch(14.16% 0.0028 325.73);
+    --card: oklch(100% 0 89.88);
+    --popover: oklch(100% 0 89.88);
+    --primary: oklch(61.97% 0.2103 17.87);
+    --primary-foreground: oklch(98.99% 0.0093 99.98);
+    --secondary: oklch(95.51% 0 89.88);
+    --secondary-foreground: oklch(20.9% 0 89.88);
+    --muted: oklch(95.51% 0 89.88);
+    --muted-foreground: oklch(54.86% 0 89.88);
+    --accent: oklch(88.09% 0.0837 144.82 / 22%);
+    --accent-foreground: oklch(48.08% 0.1306 144.91);
+    --destructive: oklch(58.3% 0.2387 28.48);
+    --border: oklch(89.98% 0.0011 197.14);
+    --input: oklch(89.98% 0.0011 197.14);
+    --ring: oklch(61.97% 0.2103 17.87);
+    --sidebar: oklch(97.91% 0 89.88);
+
+    /* Drafting motif: dashed margin rails and section rules. */
+    --rail: color-mix(in oklch, var(--foreground) 20%, transparent);
+    --selection-bg: oklch(61.97% 0.2103 17.87 / 28%);
+
+    --radius: 0.7rem;
+
+    /* How far the work strip fades at each edge. Narrow on phones so the cards
+       are not eaten by the fade; wider once there is room. */
+    --marquee-fade: 3rem;
+
+    --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+  }
+
+  .dark {
+    --background: oklch(16.84% 0 89.88);
+    --foreground: oklch(97.02% 0 89.88);
+    --card: oklch(19.13% 0 89.88);
+    --popover: oklch(20.9% 0 89.88);
+    --primary: oklch(69.53% 0.1964 17.75);
+    --primary-foreground: oklch(98.99% 0.0093 99.98);
+    --secondary: oklch(22.21% 0 89.88);
+    --secondary-foreground: oklch(97.02% 0 89.88);
+    --muted: oklch(22.21% 0 89.88);
+    --muted-foreground: oklch(61.79% 0.0019 325.6);
+    --accent: oklch(30.46% 0.0816 144.31 / 27%);
+    --accent-foreground: oklch(81.87% 0.1501 144.98);
+    --destructive: oklch(70.22% 0.1892 22.23);
+    /* Dark borders are alpha-white, not a grey hex, so they hold on any surface. */
+    --border: oklch(100% 0 89.88 / 12%);
+    --input: oklch(100% 0 89.88 / 14%);
+    --ring: oklch(69.53% 0.1964 17.75);
+    --sidebar: oklch(16.84% 0 89.88);
+    --selection-bg: oklch(81.84% 0.1372 144.99 / 30%);
+  }
+
+  * {
+    @apply border-border;
+  }
+
   html {
     scroll-behavior: smooth;
-    /* Keep anchored sections clear of the fixed navbar. */
-    scroll-padding-top: 5.5rem;
+    /* Keep anchored sections clear of the 48px header. */
+    scroll-padding-top: 4.5rem;
   }
 
   body {
-    @apply bg-dark text-white antialiased;
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
-      sans-serif;
-  }
-
-  /* Visible keyboard focus everywhere, without a ring on mouse clicks. */
-  :focus-visible {
-    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-dark;
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11";
   }
 
   ::selection {
-    @apply bg-primary/30 text-white;
+    background: var(--selection-bg);
+  }
+
+  /* Buttons signal focus with a ring, inputs with border color alone.
+     Preserve that split — never a ring on an input. */
+  :focus-visible {
+    @apply outline-none;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  /* Mono eyebrow: the only uppercase, the only mono, the only positive
+     tracking in the interface. */
+  .label-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-weight: 400;
+    @apply text-muted-foreground;
   }
 }
 
 @layer components {
-  /* Shared card surface: subtle border that warms up on hover. */
-  .card-surface {
-    @apply rounded-xl border border-white/10 bg-dark-card transition duration-300;
+  /* Full-bleed dashed rule. Section boundaries are drawn, not shaded. */
+  .rule-dashed {
+    height: 0;
+    border: 0;
+    border-top: 1px dashed var(--rail);
+    width: 99.6vw;
+    margin-left: calc(50% - 49.8vw);
   }
 
-  .card-surface:hover {
-    @apply border-primary/40 shadow-lg shadow-primary/10;
+  /* Vertical margin rails, drawn at the container edges. */
+  .rail-frame {
+    position: relative;
   }
-}
 
-.clip-path {
-  clip-path: polygon(50% 0%, 100% 40%, 80% 100%, 20% 100%, 0% 40%);
-}
-
-/* typed.js cursor */
-.typing-cursor {
-  display: inline-block;
-  width: 2px;
-  height: 1em;
-  vertical-align: -0.1em;
-  background-color: theme("colors.primary");
-  margin-left: 2px;
-  animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-  0%,
-  100% {
-    opacity: 1;
+  .rail-frame::before,
+  .rail-frame::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    border-left: 1px dashed var(--rail);
+    pointer-events: none;
   }
-  50% {
+
+  .rail-frame::before {
+    left: 0;
+  }
+
+  .rail-frame::after {
+    right: 0;
+  }
+
+  /* Plus-shaped crop marks pinning the corners of a framed region. */
+  .crop-marks > span {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    pointer-events: none;
+    color: var(--rail);
+  }
+
+  .crop-marks > span::before,
+  .crop-marks > span::after {
+    content: "";
+    position: absolute;
+    background: currentColor;
+  }
+
+  .crop-marks > span::before {
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    transform: translateX(-50%);
+  }
+
+  .crop-marks > span::after {
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    transform: translateY(-50%);
+  }
+
+  /* Work-card elevation. The base system is shadow-free, but the strip cards
+     get a soft ambient side-shadow so they lift off the field — the darker,
+     wider cast falls to the sides/bottom, a tight contact edge grounds them.
+     Kept low-alpha so it reads as depth, not decoration. */
+  .card-elevated {
+    box-shadow:
+      0 2px 6px -2px oklch(0% 0 0 / 8%),
+      0 12px 28px -8px oklch(0% 0 0 / 12%);
+  }
+
+  .card-elevated:hover {
+    box-shadow:
+      0 3px 8px -2px oklch(0% 0 0 / 10%),
+      0 18px 40px -10px oklch(0% 0 0 / 16%);
+  }
+
+  .dark .card-elevated {
+    box-shadow:
+      0 2px 6px -2px oklch(0% 0 0 / 30%),
+      0 14px 32px -8px oklch(0% 0 0 / 45%);
+  }
+
+  .dark .card-elevated:hover {
+    box-shadow:
+      0 3px 8px -2px oklch(0% 0 0 / 35%),
+      0 20px 44px -10px oklch(0% 0 0 / 55%);
+  }
+
+  /* Marquee: the work strip scrolls continuously, bleeding past the rails.
+     64–72s linear — the one place a duration other than 150/500ms is allowed. */
+  .marquee {
+    overflow: hidden;
+    width: 99.6vw;
+    margin-left: calc(50% - 49.8vw);
+    /* Vertical breathing room so the card-elevated cast isn't clipped by the
+       overflow:hidden above; the horizontal mask below only fades left/right. */
+    padding-block: 1.5rem;
+    /* The strip fades into the field at both edges rather than being clipped by
+       a hard line, so the row reads as continuing past the viewport. This is a
+       mask — surface alpha, not a shadow. */
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 var(--marquee-fade),
+      #000 calc(100% - var(--marquee-fade)),
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 var(--marquee-fade),
+      #000 calc(100% - var(--marquee-fade)),
+      transparent
+    );
+  }
+
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee-left 64s linear infinite;
+  }
+
+  .marquee-track--slow {
+    animation-duration: 72s;
+  }
+
+  /* Counter-motion: the second row travels the other way. */
+  .marquee-track--reverse {
+    animation-name: marquee-right;
+  }
+
+  /* Hovering holds the strip still so a card can actually be clicked. */
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee-left {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes marquee-right {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  /* Reveal: the 500ms duration. Driven by Reveal.tsx's observer. */
+  .reveal {
     opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 500ms cubic-bezier(0.4, 0, 0.2, 1),
+      transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* typed.js caret. Uses --primary, the sole action color. */
+  .typing-cursor {
+    display: inline-block;
+    width: 1px;
+    height: 1em;
+    vertical-align: -0.12em;
+    margin-left: 2px;
+    background: var(--primary);
+    animation: caret 1s step-end infinite;
+  }
+
+  @keyframes caret {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
   }
 }
 
-/* Scroll reveal, driven by the Reveal component's IntersectionObserver. */
-.reveal {
-  opacity: 0;
-  transform: translateY(1.25rem);
-  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-  transition-delay: var(--reveal-delay, 0ms);
+/* Widen the fade once the viewport can spare the room. */
+@media (min-width: 640px) {
+  :root {
+    --marquee-fade: 6rem;
+  }
 }
 
-.reveal.is-visible {
-  opacity: 1;
-  transform: none;
+@media (min-width: 1024px) {
+  :root {
+    --marquee-fade: 9rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
   }
 
   .reveal {
@@ -85,7 +339,8 @@
     transition: none;
   }
 
-  .typing-cursor {
-    animation: none;
+  /* The strip stops rather than jumping — content stays readable. */
+  .marquee-track {
+    animation: none !important;
   }
 }

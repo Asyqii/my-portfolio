@@ -1,9 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href="/assets/images/logo_website.png" sizes="64x64" />
+    <link rel="apple-touch-icon" href="/assets/images/logo_website.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <title>Ahmad Suyuti Syauqi — Fullstack &amp; Android Developer</title>
     <meta
@@ -12,7 +14,8 @@
     />
     <meta name="author" content="Ahmad Suyuti Syauqi" />
     <link rel="canonical" href="https://ahmad-suyuti-portfolio.vercel.app/" />
-    <meta name="theme-color" content="#111111" />
+    <meta name="theme-color" content="#0f0f0f" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f9fafa" media="(prefers-color-scheme: light)" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -36,6 +39,42 @@
       content="Portfolio of Ahmad Suyuti Syauqi, a Fullstack Developer, Android Developer, and QA enthusiast building web and mobile products with React, Next.js, and Kotlin."
     />
     <meta name="twitter:image" content="https://ahmad-suyuti-portfolio.vercel.app/og-image.jpg" />
+
+    <!-- Structured data: helps search engines identify the person behind the site. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Ahmad Suyuti Syauqi",
+        "url": "https://ahmad-suyuti-portfolio.vercel.app/",
+        "jobTitle": "Fullstack & Android Developer",
+        "image": "https://ahmad-suyuti-portfolio.vercel.app/og-image.jpg",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Surabaya",
+          "addressCountry": "ID"
+        },
+        "knowsAbout": ["React", "Next.js", "Kotlin", "Android Development", "Software Testing", "QA"],
+        "sameAs": [
+          "https://github.com/Asyqii",
+          "https://www.linkedin.com/in/ahmadsuyutisyauqi/"
+        ]
+      }
+    </script>
+
+
+    <script>
+      // Resolve the theme before first paint so the field never flashes.
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var dark = stored
+            ? stored === "dark"
+            : !window.matchMedia("(prefers-color-scheme: light)").matches;
+          document.documentElement.classList.toggle("dark", dark);
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

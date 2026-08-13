@@ -9,6 +9,12 @@ const TypingAnimation = () => {
   useEffect(() => {
     if (!el.current) return;
 
+    // Honor reduced-motion: show static text, skip the typing loop.
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      el.current.textContent = STRINGS[0];
+      return;
+    }
+
     const typed = new Typed(el.current, {
       strings: STRINGS,
       typeSpeed: 55,
@@ -23,11 +29,8 @@ const TypingAnimation = () => {
   }, []);
 
   return (
-    <p className="min-h-[1.2em] text-4xl font-bold leading-tight tracking-tight md:text-5xl">
-      <span
-        ref={el}
-        className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
-      />
+    <p className="min-h-[1.625em] font-mono text-xs text-muted-foreground">
+      <span ref={el} />
     </p>
   );
 };

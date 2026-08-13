@@ -78,12 +78,16 @@ const Navbar: FC<NavbarProps> = ({ activeSection }) => {
             type="button"
             onClick={toggle}
             aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
-            className={buttonClasses("ghost", "sm", "h-7 w-7 px-0")}
+            className={buttonClasses(
+              "outline",
+              "sm",
+              "h-9 w-9 shrink-0 border-foreground/25 px-0 hover:border-foreground/40"
+            )}
           >
             {isDark ? (
-              <Sun size={14} aria-hidden="true" />
+              <Sun size={18} strokeWidth={2} aria-hidden="true" className="h-[18px] w-[18px] shrink-0" />
             ) : (
-              <Moon size={14} aria-hidden="true" />
+              <Moon size={18} strokeWidth={2} aria-hidden="true" className="h-[18px] w-[18px] shrink-0" />
             )}
           </button>
 

@@ -127,7 +127,7 @@ const Card = ({ project }: { project: Project }) => {
   /* Uniform width keeps the loop seam invisible; the track duplicates exactly.
      card-elevated adds the soft ambient side-shadow (see index.css). */
   const shell =
-    "group card-elevated w-[19rem] shrink-0 rounded-lg bg-card p-3 ring-1 ring-foreground/10 transition-all hover:ring-foreground/20 sm:w-[23rem]";
+    "group card-elevated w-[19rem] shrink-0 rounded-lg border border-border bg-card p-3 ring-1 ring-foreground/10 transition-all hover:border-foreground/20 hover:ring-foreground/20 sm:w-[23rem]";
 
   if (!project.link) {
     return <article className={shell}>{inner}</article>;

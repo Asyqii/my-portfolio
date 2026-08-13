@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { Image, PlayCircle } from "lucide-react";
 import klikKonveksi from "./../../assets/images/website_konveksi.webp";
 import cancerApp from "./../../assets/images/cancer_app.webp";
 import storyApp from "./../../assets/images/story_app.webp";
@@ -10,190 +9,197 @@ import animeLens from "./../../assets/images/animelens_mockups.webp";
 import bigData from "./../../assets/images/bigdata.webp";
 import ngemusik from "./../../assets/images/ngemusik.webp";
 import ukmcUnitomo from "./../../assets/images/ukmc_unitomo.webp";
-import Reveal from "../Reveal";
 import SectionHeading from "../SectionHeading";
 
-const CATEGORIES = ["All", "Website Design", "App Mobile Design"] as const;
+interface Project {
+  title: string;
+  kind: "Web" | "Mobile";
+  image: string;
+  link: string;
+}
 
-const PROJECTS = [
+/* Row one travels left, row two travels right. Splitting the list keeps each
+   strip short enough that the loop seam never lands mid-viewport. */
+const ROW_ONE: Project[] = [
   {
     title: "Klik Konveksi",
-    type: "Business Website",
+    kind: "Web",
     image: klikKonveksi,
     link: "https://react-klik-konveksi.vercel.app/",
-    category: "Website Design",
   },
   {
-    title: "Asclepius: Cancer Detection App",
-    type: "Application",
+    title: "Asclepius",
+    kind: "Mobile",
     image: cancerApp,
     link: "https://github.com/Asyqii/cancer-detection-app",
-    category: "App Mobile Design",
-  },
-  {
-    title: "Story App",
-    type: "Application",
-    image: storyApp,
-    link: "https://github.com/Asyqii/story-app",
-    category: "App Mobile Design",
-  },
-  {
-    title: "Dicoding Event",
-    type: "Application",
-    image: dicodingEvent,
-    link: "https://github.com/Asyqii/dicoding-event-app",
-    category: "App Mobile Design",
-  },
-  {
-    title: "Pirate Library",
-    type: "Company Website",
-    image: pirateLibrary,
-    link: "",
-    category: "Website Design",
-  },
-  {
-    title: "Eyesight",
-    type: "Application",
-    image: eyesightApp,
-    link: "https://github.com/Eyesight-team/eyesight-app",
-    category: "App Mobile Design",
-  },
-  {
-    title: "AnimeLens.",
-    type: "Application",
-    image: animeLens,
-    link: "https://github.com/Asyqii/anime-app",
-    category: "App Mobile Design",
   },
   {
     title: "Big Data Partnership",
-    type: "Company Website",
+    kind: "Web",
     image: bigData,
     link: "https://bigdatapartnership.id/",
-    category: "Website Design",
+  },
+  {
+    title: "Story App",
+    kind: "Mobile",
+    image: storyApp,
+    link: "https://github.com/Asyqii/story-app",
   },
   {
     title: "UKM Center UNITOMO",
-    type: "Company Website",
+    kind: "Web",
     image: ukmcUnitomo,
     link: "https://ukmc-unitomo.vercel.app/",
-    category: "Website Design",
-  },
-  {
-    title: "Ngemusik",
-    type: "Company Website",
-    image: ngemusik,
-    link: "https://www.ruangemusik.com/",
-    category: "Website Design",
   },
 ];
 
-const PortfolioSection = () => {
-  const [selectedCategory, setSelectedCategory] =
-    useState<(typeof CATEGORIES)[number]>("All");
-  const [showAll, setShowAll] = useState(false);
+const ROW_TWO: Project[] = [
+  {
+    title: "Ngemusik",
+    kind: "Web",
+    image: ngemusik,
+    link: "https://www.ruangemusik.com/",
+  },
+  {
+    title: "Eyesight",
+    kind: "Mobile",
+    image: eyesightApp,
+    link: "https://github.com/Eyesight-team/eyesight-app",
+  },
+  {
+    title: "Pirate Library",
+    kind: "Web",
+    image: pirateLibrary,
+    link: "",
+  },
+  {
+    title: "AnimeLens",
+    kind: "Mobile",
+    image: animeLens,
+    link: "https://github.com/Asyqii/anime-app",
+  },
+  {
+    title: "Dicoding Event",
+    kind: "Mobile",
+    image: dicodingEvent,
+    link: "https://github.com/Asyqii/dicoding-event-app",
+  },
+];
 
-  const filtered = PROJECTS.filter(
-    (project) =>
-      selectedCategory === "All" || project.category === selectedCategory
+/**
+ * One work card: framed preview above, caption bar below. The caption carries a
+ * type glyph on the left and the mono kind label on the right — the label is the
+ * only uppercase text here, per the eyebrow rule.
+ */
+const Card = ({ project }: { project: Project }) => {
+  const Glyph = project.kind === "Mobile" ? PlayCircle : Image;
+
+  const inner = (
+    <>
+      <div className="overflow-hidden rounded-md border-b border-border">
+        <img
+          src={project.image}
+          alt={`${project.title} preview`}
+          width={900}
+          height={506}
+          loading="lazy"
+          decoding="async"
+          className="aspect-video w-full object-cover"
+        />
+      </div>
+
+      <div className="flex items-center justify-between gap-4 px-1 pt-3">
+        <span className="flex items-center gap-2 text-[13px] leading-[1.625] text-foreground/60 transition-all group-hover:text-foreground">
+          <Glyph
+            size={14}
+            aria-hidden="true"
+            className={project.kind === "Mobile" ? "text-primary" : ""}
+          />
+          {project.title}
+        </span>
+        <span className="label-eyebrow shrink-0">
+          {project.kind === "Mobile" ? "Motion" : "Still"}
+        </span>
+      </div>
+    </>
   );
-  const displayed = showAll ? filtered : filtered.slice(0, 3);
-  const hasMore = filtered.length > 3;
+
+  /* Uniform width keeps the loop seam invisible; the track duplicates exactly.
+     card-elevated adds the soft ambient side-shadow (see index.css). */
+  const shell =
+    "group card-elevated w-[19rem] shrink-0 rounded-lg bg-card p-3 ring-1 ring-foreground/10 transition-all hover:ring-foreground/20 sm:w-[23rem]";
+
+  if (!project.link) {
+    return <article className={shell}>{inner}</article>;
+  }
 
   return (
-    <section id="portfolio" className="px-4 py-24 md:px-8">
-      <div className="mx-auto max-w-content">
-        <SectionHeading
-          title="Portfolio"
-          subtitle="A selection of websites and mobile apps I have designed and shipped."
-        />
-
-        <div
-          role="tablist"
-          aria-label="Filter projects by category"
-          className="mb-12 flex flex-wrap justify-center gap-2"
-        >
-          {CATEGORIES.map((category) => {
-            const isActive = selectedCategory === category;
-            return (
-              <button
-                key={category}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                onClick={() => {
-                  setSelectedCategory(category);
-                  setShowAll(false);
-                }}
-                className={`rounded-md px-4 py-2 text-sm font-medium transition duration-300 ${
-                  isActive
-                    ? "bg-gradient-to-r from-primary to-accent text-white shadow-lg shadow-primary/20"
-                    : "border border-white/10 bg-dark-card text-gray-400 hover:border-primary/40 hover:text-white"
-                }`}
-              >
-                {category}
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {displayed.map((project, index) => (
-            <Reveal key={project.title} delay={(index % 3) * 90}>
-              <article className="card-surface group h-full overflow-hidden">
-                <div className="relative aspect-video overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={`${project.title} preview`}
-                    width={900}
-                    height={506}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
-                  />
-                </div>
-
-                <div className="flex items-start justify-between gap-3 p-5">
-                  <div>
-                    <h3 className="font-bold leading-snug">{project.title}</h3>
-                    <p className="mt-1 text-sm text-gray-400">{project.type}</p>
-                  </div>
-
-                  {project.link ? (
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`View ${project.title}`}
-                      className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-white/10 text-gray-400 transition duration-300 hover:border-primary hover:bg-primary hover:text-white"
-                    >
-                      <ArrowUpRight size={18} aria-hidden="true" />
-                    </a>
-                  ) : (
-                    <span className="mt-1 shrink-0 rounded-md border border-white/10 px-2 py-1 text-xs text-gray-500">
-                      Private
-                    </span>
-                  )}
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-
-        {hasMore && (
-          <div className="mt-12 text-center">
-            <button
-              type="button"
-              onClick={() => setShowAll((prev) => !prev)}
-              className="rounded-md border border-white/10 bg-dark-card px-6 py-3 text-sm font-medium text-gray-300 transition duration-300 hover:border-primary/50 hover:text-white"
-            >
-              {showAll ? "Show Less" : `Show All (${filtered.length})`}
-            </button>
-          </div>
-        )}
-      </div>
-    </section>
+    <a
+      href={project.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`Open ${project.title}`}
+      className={`${shell} block focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30 focus-visible:outline-none`}
+    >
+      {inner}
+    </a>
   );
 };
+
+/**
+ * A continuously scrolling strip. The list is rendered twice so translating the
+ * track by -50% lands exactly on the duplicate, making the loop seamless. The
+ * second copy is hidden from assistive tech.
+ */
+const Strip = ({
+  projects,
+  reverse = false,
+  slow = false,
+}: {
+  projects: Project[];
+  reverse?: boolean;
+  slow?: boolean;
+}) => (
+  <div className="marquee">
+    <div
+      className={`marquee-track gap-4 ${reverse ? "marquee-track--reverse" : ""} ${
+        slow ? "marquee-track--slow" : ""
+      }`}
+    >
+      <ul className="flex shrink-0 gap-4 pr-4">
+        {projects.map((project) => (
+          <li key={project.title} className="flex">
+            <Card project={project} />
+          </li>
+        ))}
+      </ul>
+      <ul aria-hidden="true" className="flex shrink-0 gap-4 pr-4">
+        {projects.map((project) => (
+          <li key={project.title} className="flex">
+            <Card project={project} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+);
+
+const PortfolioSection = () => (
+  <section id="portfolio" className="py-16 sm:py-24">
+    <div className="mx-auto max-w-container px-5 sm:px-8 lg:px-12">
+      <SectionHeading
+        eyebrow="Work"
+        title="Selected projects"
+        lead="Websites and mobile apps I have designed, built, and shipped. The strip pauses when you hover it."
+      />
+    </div>
+
+    {/* Full-bleed: the strips run past the container gutters by design. */}
+    <div className="mt-12 flex flex-col gap-4">
+      <Strip projects={ROW_ONE} />
+      <Strip projects={ROW_TWO} reverse slow />
+    </div>
+  </section>
+);
 
 export default PortfolioSection;

@@ -1,34 +1,60 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: "class",
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-sans)"],
+        mono: ["var(--font-mono)"],
+      },
       colors: {
-        primary: "#FF4D00",
-        accent: "#E60026",
-        dark: "#111111",
-        "dark-card": "#1A1A1A",
-        "dark-elevated": "#212121",
-        muted: "#959595",
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+        card: "var(--card)",
+        popover: "var(--popover)",
+        primary: {
+          DEFAULT: "var(--primary)",
+          foreground: "var(--primary-foreground)",
+        },
+        secondary: {
+          DEFAULT: "var(--secondary)",
+          foreground: "var(--secondary-foreground)",
+        },
+        muted: {
+          DEFAULT: "var(--muted)",
+          foreground: "var(--muted-foreground)",
+        },
+        accent: {
+          DEFAULT: "var(--accent)",
+          foreground: "var(--accent-foreground)",
+        },
+        destructive: "var(--destructive)",
+        border: "var(--border)",
+        input: "var(--input)",
+        ring: "var(--ring)",
+        sidebar: "var(--sidebar)",
+        rail: "var(--rail)",
       },
-      backgroundColor: {
-        dark: "#111111",
-        "dark-card": "#1A1A1A",
-      },
-      boxShadow: {
-        "inner-custom": "inset 1px 1px 20px",
+      borderRadius: {
+        sm: "calc(var(--radius) * 0.6)",
+        md: "calc(var(--radius) * 0.8)",
+        lg: "var(--radius)",
+        xl: "calc(var(--radius) * 1.4)",
+        "2xl": "calc(var(--radius) * 1.8)",
+        "3xl": "calc(var(--radius) * 2.2)",
       },
       maxWidth: {
-        content: "72rem",
+        container: "76rem",
       },
-      keyframes: {
-        "fade-in-up": {
-          from: { opacity: "0", transform: "translateY(1.25rem)" },
-          to: { opacity: "1", transform: "none" },
-        },
+      /* Two durations for the entire product. */
+      transitionDuration: {
+        DEFAULT: "150ms",
+        150: "150ms",
+        500: "500ms",
       },
-      animation: {
-        "fade-in-up": "fade-in-up 0.7s ease-out both",
+      transitionTimingFunction: {
+        DEFAULT: "cubic-bezier(0.4, 0, 0.2, 1)",
       },
     },
   },

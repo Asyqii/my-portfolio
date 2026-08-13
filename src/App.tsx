@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { Github, Mail, Download, ChevronDown } from "lucide-react";
+import { ArrowUpRight, Download } from "lucide-react";
 import Navbar from "./components/Navbar";
-import myPhoto from "./assets/images/my_photo.webp";
 import myPhoto2 from "./assets/images/my_photo2.webp";
-import Linkedin from "./assets/images/linkedin.webp";
 import appEyesight from "./assets/images/app.webp";
 import websiteKonveksi from "./assets/images/website_konveksi.webp";
 import pirateLibrary from "./assets/images/pirate_library.webp";
@@ -12,77 +10,61 @@ import reactLogo from "./assets/images/react_logo.webp";
 import javascriptLogo from "./assets/images/js_logo.webp";
 import kotlinLogo from "./assets/images/kotlin_logo.webp";
 import sqlLogo from "./assets/images/sql_logo.webp";
-import ProgressIcon from "./components/IconProgress";
+import IconProgress from "./components/IconProgress";
 import PortfolioSection from "./components/layout/PortfolioSection";
-import Blob from "./components/Blob";
 import TypingAnimation from "./components/TypingAnimation";
 import Reveal from "./components/Reveal";
 import SectionHeading from "./components/SectionHeading";
+import Frame from "./components/ui/Frame";
+import { buttonClasses } from "./components/ui/buttonClasses";
 
 const SECTIONS = ["home", "services", "about", "portfolio", "contact"] as const;
 type Section = (typeof SECTIONS)[number];
 
 const SOCIALS = [
-  {
-    label: "Github",
-    href: "https://github.com/Asyqii",
-    icon: <Github size={22} aria-hidden="true" />,
-  },
-  {
-    label: "Email",
-    href: "mailto:ahmadsuyutisyauqi@gmail.com",
-    icon: <Mail size={22} aria-hidden="true" />,
-  },
-  {
-    label: "Linkedin",
-    href: "https://www.linkedin.com/in/ahmadsuyutisyauqi/",
-    icon: (
-      <img
-        src={Linkedin}
-        width={22}
-        height={22}
-        className="h-[22px] w-[22px] object-contain"
-        alt=""
-      />
-    ),
-  },
+  { label: "GitHub", href: "https://github.com/Asyqii" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/ahmadsuyutisyauqi/" },
+  { label: "Email", href: "mailto:ahmadsuyutisyauqi@gmail.com" },
 ];
 
 const STATS = [
-  { value: "3+", label: "Experiences" },
-  { value: "10+", label: "Projects done" },
-  { value: "7+", label: "Happy Clients" },
+  { value: "3+", label: "Years" },
+  { value: "10+", label: "Projects" },
+  { value: "7+", label: "Clients" },
 ];
 
 const SERVICES = [
   {
-    title: "An Application",
+    index: "01",
+    title: "Android application",
     image: appEyesight,
     alt: "Eyesight mobile app screens",
     description:
-      "Attractive and user-friendly mobile applications for Android platforms, according to your business needs.",
+      "Attractive, user-friendly mobile applications for Android, built to match how your business actually works.",
   },
   {
-    title: "Business Website",
+    index: "02",
+    title: "Business website",
     image: websiteKonveksi,
     alt: "Klik Konveksi business website",
     description:
-      "Create a business website specifically designed to promote your products or services.",
+      "A site designed around promoting your products or services, with the content structure to support it.",
   },
   {
-    title: "Company Profile Website",
+    index: "03",
+    title: "Company profile",
     image: pirateLibrary,
     alt: "Pirate Library company profile website",
     description:
-      "Display important information about your company, including vision, mission, and services.",
+      "Vision, mission, and services presented so a first-time visitor understands the company quickly.",
   },
 ];
 
 const SKILLS = [
   { logo: figmaLogo, name: "Figma" },
-  { logo: reactLogo, name: "React JS" },
-  { logo: "https://cdn.simpleicons.org/nextdotjs/white", name: "Next JS" },
-  { logo: javascriptLogo, name: "Javascript" },
+  { logo: reactLogo, name: "React" },
+  { logo: "https://cdn.simpleicons.org/nextdotjs/currentColor", name: "Next.js" },
+  { logo: javascriptLogo, name: "JavaScript" },
   { logo: kotlinLogo, name: "Kotlin" },
   { logo: sqlLogo, name: "SQL" },
   { logo: "https://cdn.simpleicons.org/supabase/3ECF8E", name: "Supabase" },
@@ -91,16 +73,17 @@ const SKILLS = [
 const FOOTER_LINKS = [
   { label: "Home", href: "#home" },
   { label: "Services", href: "#services" },
-  { label: "About me", href: "#about" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Contact me", href: "#contact" },
+  { label: "About", href: "#about" },
+  { label: "Work", href: "#portfolio" },
+  { label: "Contact", href: "#contact" },
 ];
 
-const SOCIAL_RING =
-  "flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-dark-elevated text-gray-300 transition duration-300 hover:-translate-y-0.5 hover:border-primary hover:text-white hover:shadow-lg hover:shadow-primary/25";
-
+/* Inputs signal focus by border color alone — no ring.
+   Use a solid surface: --input carries its own alpha, so Tailwind's /20
+   opacity modifier can't resolve it and the field renders near-white.
+   bg-background is a solid token with guaranteed contrast against the card. */
 const FIELD =
-  "w-full rounded-md border border-white/10 bg-dark p-3 text-white placeholder:text-gray-500 transition-colors focus:border-primary focus:outline-none";
+  "h-7 w-full rounded-md border border-input bg-background px-2 text-xs text-foreground shadow-none transition-all placeholder:text-muted-foreground focus:border-primary focus:outline-none [&>option]:bg-popover [&>option]:text-foreground";
 
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<Section>("home");
@@ -110,8 +93,8 @@ const App: React.FC = () => {
   >("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Track the most-visible section to drive the navbar highlight. Reads are
-  // batched into a single rAF so a scroll burst does not thrash layout.
+  // Track the most-visible section for the nav highlight. Reads batch into a
+  // single rAF so a scroll burst does not thrash layout.
   useEffect(() => {
     let frame = 0;
 
@@ -134,7 +117,9 @@ const App: React.FC = () => {
         }
       }
 
-      setActiveSection((previous) => (previous === current ? previous : current));
+      setActiveSection((previous) =>
+        previous === current ? previous : current
+      );
     };
 
     const onScroll = () => {
@@ -176,12 +161,12 @@ const App: React.FC = () => {
         setErrorMessage("");
         form.reset();
       } else {
-        console.error("Web3Forms Error Data:", data);
+        if (import.meta.env.DEV) console.error("Web3Forms Error Data:", data);
         setErrorMessage(data.message || "Failed to send your message.");
         setSubmitStatus("error");
       }
     } catch (error: unknown) {
-      console.error("Web3Forms Fetch Error:", error);
+      if (import.meta.env.DEV) console.error("Web3Forms Fetch Error:", error);
       setErrorMessage(
         error instanceof Error ? error.message : "A network error occurred."
       );
@@ -192,34 +177,49 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-dark text-white">
+    <div className="min-h-screen bg-background text-foreground">
       <Navbar activeSection={activeSection} />
 
       <main>
         {/* Hero */}
         <section
           id="home"
-          className="relative overflow-hidden px-4 pb-24 pt-32 md:px-8 md:pb-32 md:pt-40"
+          className="px-5 pb-20 pt-24 sm:px-8 sm:pb-20 lg:px-12"
         >
-          <div className="mx-auto grid max-w-content items-center gap-14 md:grid-cols-2 md:gap-16">
-            <Blob />
+          <div className="mx-auto grid max-w-5xl items-center gap-12 md:grid-cols-[1fr_auto]">
+            <div>
+              <p className="label-eyebrow">Surabaya, Indonesia</p>
 
-            <div className="relative z-10 animate-fade-in-up">
-              <p className="mb-3 text-sm uppercase tracking-[0.2em] text-gray-500">
-                Hi ! I am
-              </p>
-              <h1 className="mb-4 inline-block bg-gradient-to-r from-white to-muted bg-clip-text text-3xl font-bold tracking-tight text-transparent md:text-4xl">
+              <h1 className="mt-4 text-[1.4rem] font-medium leading-[1.1] tracking-[-0.035em] sm:text-5xl lg:text-[4.2rem] lg:leading-[1.06] lg:tracking-[-0.03em]">
                 Ahmad Suyuti Syauqi
               </h1>
-              <TypingAnimation />
 
-              <p className="mt-6 max-w-md leading-relaxed text-gray-400">
+              <div className="mt-4">
+                <TypingAnimation />
+              </div>
+
+              <p className="mt-6 max-w-xl text-[15px] leading-[1.625] text-foreground/60">
                 I build and test digital products end to end — from management
                 information systems to hardware-integrated mobile apps.
               </p>
 
-              <ul className="mt-8 flex gap-4">
-                {SOCIALS.map(({ label, href, icon }) => (
+              <div className="mt-8 flex flex-wrap items-center gap-2">
+                <a
+                  href="/CV_ATS_Ahmad_Suyuti_Syauqi.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={buttonClasses("default", "cta")}
+                >
+                  <Download size={16} aria-hidden="true" />
+                  Download CV
+                </a>
+                <a href="#portfolio" className={buttonClasses("outline", "cta")}>
+                  View work
+                </a>
+              </div>
+
+              <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
+                {SOCIALS.map(({ label, href }) => (
                   <li key={label}>
                     <a
                       href={href}
@@ -229,81 +229,59 @@ const App: React.FC = () => {
                           ? "noopener noreferrer"
                           : undefined
                       }
-                      className={SOCIAL_RING}
-                      aria-label={label}
+                      className="inline-flex items-center gap-1 rounded-[4px] text-xs text-foreground/60 transition-all hover:text-foreground focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30"
                     >
-                      {icon}
+                      {label}
+                      <ArrowUpRight size={12} aria-hidden="true" />
                     </a>
                   </li>
                 ))}
               </ul>
-
-              <div className="mt-8 flex flex-wrap gap-3">
-                <a
-                  className="inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-primary to-accent px-6 py-3 font-medium transition duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-primary/25"
-                  href="/CV_ATS_Ahmad_Suyuti_Syauqi.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Download size={18} aria-hidden="true" />
-                  Download CV
-                </a>
-                <a
-                  className="inline-flex items-center rounded-md border border-white/10 bg-dark-card px-6 py-3 font-medium transition duration-300 hover:border-primary/50 hover:bg-dark-elevated"
-                  href="#portfolio"
-                >
-                  Projects
-                </a>
-              </div>
-
-              <dl className="mt-12 grid max-w-lg grid-cols-3 divide-x divide-white/10 rounded-xl border border-white/10 bg-dark-elevated">
-                {STATS.map(({ value, label }) => (
-                  <div key={label} className="px-4 py-5 text-center sm:px-6">
-                    <dt className="sr-only">{label}</dt>
-                    <dd>
-                      <span className="block text-2xl font-bold text-primary">
-                        {value}
-                      </span>
-                      <span className="mt-1 block text-xs text-gray-400 sm:text-sm">
-                        {label}
-                      </span>
-                    </dd>
-                  </div>
-                ))}
-              </dl>
             </div>
 
-            <div className="relative mx-auto w-full max-w-sm md:max-w-none">
-              <div
-                aria-hidden="true"
-                className="absolute -inset-4 rounded-full bg-gradient-to-tr from-primary/25 to-accent/10 blur-2xl"
-              />
-              <div className="relative aspect-square overflow-hidden rounded-full ring-1 ring-white/10">
+            <Frame className="mx-auto w-40 sm:w-48 md:w-56">
+              <div className="overflow-hidden rounded-lg ring-1 ring-foreground/10">
                 <img
                   src={myPhoto2}
                   alt="Ahmad Suyuti Syauqi"
                   width={1100}
                   height={1100}
-                  className="h-full w-full object-cover grayscale transition duration-500 hover:grayscale-0"
+                  fetchPriority="high"
+                  sizes="(min-width: 768px) 224px, (min-width: 640px) 192px, 160px"
+                  className="aspect-square w-full object-cover"
                 />
               </div>
-            </div>
+            </Frame>
           </div>
+
+          <dl className="mx-auto mt-16 grid max-w-5xl grid-cols-3 border-y border-border">
+            {STATS.map(({ value, label }) => (
+              <div key={label} className="px-4 py-4 first:pl-0">
+                <dt className="label-eyebrow">{label}</dt>
+                <dd className="mt-1 text-4xl font-normal tracking-[-0.025em]">
+                  {value}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </section>
 
+        <hr className="rule-dashed" />
+
         {/* Services */}
-        <section id="services" className="px-4 py-24 md:px-8">
-          <div className="mx-auto max-w-content">
+        <section id="services" className="px-5 py-16 sm:px-8 sm:py-24 lg:px-12">
+          <div className="mx-auto max-w-container">
             <SectionHeading
-              title="Services"
-              subtitle="With expertise in web and Android development, I create responsive, user-friendly products that help your business thrive in the digital world."
+              eyebrow="Services"
+              title="What I build"
+              lead="Web and Android development, from the data layer through to a interface someone can actually use."
             />
 
-            <div className="grid gap-6 md:grid-cols-3">
-              {SERVICES.map(({ title, image, alt, description }, index) => (
-                <Reveal key={title} delay={index * 90}>
-                  <article className="card-surface group h-full overflow-hidden">
-                    <div className="aspect-[16/10] overflow-hidden">
+            <div className="mt-12 grid gap-4 md:grid-cols-3">
+              {SERVICES.map(({ index, title, image, alt, description }, i) => (
+                <Reveal key={title} delay={i * 90}>
+                  <article className="group card-elevated h-full overflow-hidden rounded-lg bg-card ring-1 ring-foreground/10 transition-all hover:-translate-y-1 hover:ring-foreground/20">
+                    <div className="overflow-hidden border-b border-border">
                       <img
                         src={image}
                         alt={alt}
@@ -311,12 +289,19 @@ const App: React.FC = () => {
                         height={562}
                         loading="lazy"
                         decoding="async"
-                        className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                        className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
-                    <div className="p-6">
-                      <h3 className="mb-2 text-lg font-bold">{title}</h3>
-                      <p className="text-sm leading-relaxed text-gray-400">
+                    <div className="flex flex-col gap-4 px-4 py-4">
+                      <div className="flex items-baseline gap-2">
+                        <span className="label-eyebrow transition-all group-hover:text-primary">
+                          {index}
+                        </span>
+                        <h3 className="text-sm font-semibold leading-[21px] tracking-[-0.025em]">
+                          {title}
+                        </h3>
+                      </div>
+                      <p className="text-[13px] leading-[1.625] text-foreground/50">
                         {description}
                       </p>
                     </div>
@@ -327,51 +312,31 @@ const App: React.FC = () => {
           </div>
         </section>
 
+        <hr className="rule-dashed" />
+
         {/* About */}
-        <section
-          id="about"
-          className="border-y border-white/5 bg-dark-card px-4 py-24 md:px-8"
-        >
-          <div className="mx-auto max-w-content">
-            <SectionHeading
-              title="About Me"
-              subtitle="Front-End Developer, Android Developer, and UI/UX Designer"
-            />
+        <section id="about" className="px-5 py-16 sm:px-8 sm:py-24 lg:px-12">
+          <div className="mx-auto max-w-container">
+            <SectionHeading eyebrow="About" title="Background" />
 
-            <div className="grid items-start gap-12 md:grid-cols-2">
+            <div className="mt-12 grid gap-12 md:grid-cols-[1fr_20rem]">
               <Reveal>
-                <div className="aspect-square overflow-hidden rounded-2xl ring-1 ring-white/10">
-                  <img
-                    src={myPhoto}
-                    alt="Ahmad Suyuti Syauqi"
-                    width={1100}
-                    height={1100}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              </Reveal>
-
-              <Reveal delay={120}>
-                <div className="space-y-5 leading-relaxed text-gray-400">
+                <div className="max-w-xl space-y-4 text-[15px] leading-[1.625] text-foreground/60">
                   <p>
-                    Hello! I'm Ahmad Suyuti Syauqi, a Fullstack Developer,
-                    Mobile Developer, and QA Enthusiast dedicated to building
-                    and evaluating robust digital systems.
+                    I'm a Fullstack Developer, Mobile Developer, and QA
+                    enthusiast working on building and evaluating robust digital
+                    systems.
                   </p>
                   <p>
                     I have developed complex projects ranging from comprehensive
                     management information systems to hardware-integrated mobile
-                    apps. Leveraging my expertise in React JS, Next JS, Kotlin,
-                    and usability testing (SUS), I focus on delivering
-                    high-quality, bug-free solutions with an intuitive user
-                    experience.
+                    apps. Leveraging React, Next.js, Kotlin, and usability
+                    testing (SUS), I focus on delivering high-quality solutions
+                    with an intuitive user experience.
                   </p>
                   <p>
-                    Passionate about AI implementation and software testing, I
-                    am ready to help realize and optimize your digital vision.
-                    Feel free to contact me for your next project!
+                    Passionate about AI implementation and software testing, and
+                    ready to help realise your next project.
                   </p>
                 </div>
 
@@ -379,19 +344,19 @@ const App: React.FC = () => {
                   href="/certificates.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-8 inline-flex items-center gap-2 rounded-md bg-gradient-to-r from-primary to-accent px-6 py-3 font-medium transition duration-300 hover:scale-[1.03] hover:shadow-lg hover:shadow-primary/25"
+                  className={buttonClasses("outline", "cta", "mt-8")}
                 >
-                  <Download size={18} aria-hidden="true" />
-                  My Certificate
+                  <Download size={16} aria-hidden="true" />
+                  Certificates
                 </a>
+              </Reveal>
 
-                <h3 className="mt-12 text-sm uppercase tracking-[0.2em] text-gray-500">
-                  Tools &amp; technologies
-                </h3>
-                <ul className="mt-6 flex flex-wrap gap-6">
+              <Reveal delay={120}>
+                <p className="label-eyebrow">Tools</p>
+                <ul className="mt-4 flex flex-wrap gap-2">
                   {SKILLS.map(({ logo, name }) => (
                     <li key={name}>
-                      <ProgressIcon logo={logo} name={name} />
+                      <IconProgress logo={logo} name={name} />
                     </li>
                   ))}
                 </ul>
@@ -400,24 +365,38 @@ const App: React.FC = () => {
           </div>
         </section>
 
+        <hr className="rule-dashed" />
+
         <PortfolioSection />
 
+        <hr className="rule-dashed" />
+
         {/* Contact */}
-        <section
-          id="contact"
-          className="border-t border-white/5 bg-dark-card px-4 py-24 md:px-8"
-        >
-          <div className="mx-auto max-w-3xl">
+        <section id="contact" className="px-5 py-16 sm:px-8 sm:py-24 lg:px-12">
+          <div className="mx-auto max-w-container">
             <SectionHeading
-              title="Contact me"
-              subtitle="Cultivating connections — reach out and let's build something together."
+              eyebrow="Contact"
+              title="Start a project"
+              lead="Tell me what you're building and I'll get back to you."
             />
 
-            <Reveal>
-              <form className="space-y-5" onSubmit={handleSubmit}>
-                <div className="grid gap-5 md:grid-cols-2">
+            <Reveal className="mt-12">
+              <form
+                onSubmit={handleSubmit}
+                className="max-w-xl rounded-lg bg-card px-4 py-4 ring-1 ring-foreground/10"
+              >
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {/* Honeypot: hidden from users; bots that fill it are rejected. */}
+                  <input
+                    type="checkbox"
+                    name="botcheck"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="hidden"
+                  />
                   <div>
-                    <label htmlFor="name" className="sr-only">
+                    <label htmlFor="name" className="label-eyebrow">
                       Name
                     </label>
                     <input
@@ -426,12 +405,11 @@ const App: React.FC = () => {
                       required
                       type="text"
                       autoComplete="name"
-                      placeholder="Name"
-                      className={FIELD}
+                      className={`${FIELD} mt-1.5`}
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="sr-only">
+                    <label htmlFor="email" className="label-eyebrow">
                       Email
                     </label>
                     <input
@@ -440,96 +418,83 @@ const App: React.FC = () => {
                       required
                       type="email"
                       autoComplete="email"
-                      placeholder="Email"
-                      className={FIELD}
+                      className={`${FIELD} mt-1.5`}
                     />
+                  </div>
+                  <div>
+                    <label htmlFor="phone" className="label-eyebrow">
+                      Phone
+                    </label>
+                    <input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      autoComplete="tel"
+                      className={`${FIELD} mt-1.5`}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="service" className="label-eyebrow">
+                      Service
+                    </label>
+                    <select
+                      id="service"
+                      name="service"
+                      className={`${FIELD} mt-1.5`}
+                    >
+                      <option value="">Select…</option>
+                      <option value="web">Website development</option>
+                      <option value="mobile">Mobile development</option>
+                      <option value="design">UI/UX design</option>
+                    </select>
                   </div>
                 </div>
 
-                <div>
-                  <label htmlFor="phone" className="sr-only">
-                    Phone number
-                  </label>
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    autoComplete="tel"
-                    placeholder="Phone Number"
-                    className={FIELD}
-                  />
-                </div>
-
-                <div className="relative">
-                  <label htmlFor="service" className="sr-only">
-                    Service of interest
-                  </label>
-                  <select
-                    id="service"
-                    name="service"
-                    className={`${FIELD} appearance-none pr-10`}
-                  >
-                    <option value="">Service Of Interest</option>
-                    <option value="web">Website Development</option>
-                    <option value="mobile">Mobile Development</option>
-                    <option value="design">UI/UX Design</option>
-                  </select>
-                  <ChevronDown
-                    aria-hidden="true"
-                    className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
-                    size={20}
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="timeline" className="sr-only">
+                <div className="mt-3">
+                  <label htmlFor="timeline" className="label-eyebrow">
                     Timeline
                   </label>
                   <input
                     id="timeline"
                     name="timeline"
                     type="text"
-                    placeholder="Timeline"
-                    className={FIELD}
+                    className={`${FIELD} mt-1.5`}
                   />
                 </div>
 
-                <div>
-                  <label htmlFor="brief" className="sr-only">
-                    Project brief
+                <div className="mt-3">
+                  <label htmlFor="brief" className="label-eyebrow">
+                    Brief
                   </label>
                   <textarea
                     id="brief"
                     name="brief"
                     required
-                    placeholder="Project Brief..."
-                    rows={6}
-                    className={`${FIELD} resize-y`}
+                    rows={5}
+                    className={`${FIELD} mt-1.5 h-auto resize-y py-2 leading-[1.625]`}
                   />
                 </div>
 
-                <div className="flex flex-col items-stretch gap-4 sm:flex-row-reverse sm:items-center sm:justify-between">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="rounded-md bg-gradient-to-r from-primary to-accent px-8 py-3 font-medium transition duration-300 hover:shadow-lg hover:shadow-primary/25 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:shadow-none"
-                  >
-                    {isSubmitting ? "Sending…" : "Send"}
-                  </button>
-
-                  <p aria-live="polite" className="text-sm">
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+                  <p aria-live="polite" className="text-xs">
                     {submitStatus === "success" && (
-                      <span className="text-green-400">
-                        Thanks! Your message has been sent.
+                      <span className="text-accent-foreground">
+                        Sent — thanks, I'll be in touch.
                       </span>
                     )}
                     {submitStatus === "error" && (
-                      <span className="text-red-400">
-                        {errorMessage ||
-                          "Failed to send your message. Please try again."}
+                      <span className="text-destructive">
+                        {errorMessage || "Failed to send. Please try again."}
                       </span>
                     )}
                   </p>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={buttonClasses("default", "cta", "ml-auto")}
+                  >
+                    {isSubmitting ? "Sending…" : "Send message"}
+                  </button>
                 </div>
               </form>
             </Reveal>
@@ -537,22 +502,29 @@ const App: React.FC = () => {
         </section>
       </main>
 
-      <footer className="border-t border-white/5 px-4 py-14 text-center md:px-8">
-        <div className="mx-auto max-w-content">
-          <a
-            href="#home"
-            className="inline-block bg-gradient-to-r from-primary to-accent bg-clip-text text-2xl font-bold text-transparent"
-          >
-            Kii.
-          </a>
+      <hr className="rule-dashed" />
 
-          <nav aria-label="Footer" className="mt-8">
-            <ul className="flex flex-wrap justify-center gap-x-8 gap-y-3">
+      <footer className="px-5 py-16 sm:px-8 lg:px-12">
+        <div className="mx-auto flex max-w-container flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          <div>
+            <a
+              href="#home"
+              className="rounded-[4px] font-mono text-xs tracking-[0.16em] text-foreground"
+            >
+              KII.
+            </a>
+            <p className="mt-3 text-[13px] leading-[1.625] text-foreground/50">
+              © {new Date().getFullYear()} Ahmad Suyuti Syauqi
+            </p>
+          </div>
+
+          <nav aria-label="Footer">
+            <ul className="flex flex-wrap gap-x-5 gap-y-2">
               {FOOTER_LINKS.map(({ label, href }) => (
                 <li key={label}>
                   <a
                     href={href}
-                    className="text-sm text-gray-400 transition-colors hover:text-primary"
+                    className="rounded-[4px] text-xs text-foreground/60 transition-all hover:text-foreground"
                   >
                     {label}
                   </a>
@@ -560,29 +532,6 @@ const App: React.FC = () => {
               ))}
             </ul>
           </nav>
-
-          <ul className="mt-8 flex justify-center gap-4">
-            {SOCIALS.map(({ label, href, icon }) => (
-              <li key={label}>
-                <a
-                  href={href}
-                  target={href.startsWith("http") ? "_blank" : undefined}
-                  rel={
-                    href.startsWith("http") ? "noopener noreferrer" : undefined
-                  }
-                  className={SOCIAL_RING}
-                  aria-label={label}
-                >
-                  {icon}
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          <p className="mt-10 text-sm text-gray-500">
-            © {new Date().getFullYear()} Ahmad Suyuti Syauqi. All rights
-            reserved.
-          </p>
         </div>
       </footer>
     </div>
